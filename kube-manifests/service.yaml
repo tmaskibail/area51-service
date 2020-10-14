@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: area51-external
+spec:
+  type: LoadBalancer
+  selector:
+    app: area51
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080

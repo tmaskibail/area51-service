@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: area51
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: area51
+  template:
+    metadata:
+      labels:
+        app: area51
+    spec:
+      containers:
+        - name: server
+          image: area51
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
+            # This environment variable enables debugging support for the container.
+            # Remove this to disable the debug build.
+            - name: JAVA_TOOL_OPTIONS
+              value: -agentlib:jdwp=transport=dt_socket,server=y,address=5005,suspend=n,quiet=y
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+          volumeMounts:
+            - mountPath: /root/.config/gcloud
+              name: gcloud-volume
+      volumes:
+        - name: gcloud-volume
+          hostPath:
+            path: /Users/tmaskibail/.config/gcloud

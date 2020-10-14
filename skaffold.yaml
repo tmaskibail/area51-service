@@ -1,0 +1,20 @@
+apiVersion: skaffold/v2beta8
+kind: Config
+build:
+  artifacts:
+  - image: area51
+    jib: {}
+  tagPolicy:
+    sha256: {}
+deploy:
+  kubectl:
+    manifests:
+    - ./kube-manifests/**.yaml
+profiles:
+- name: cloudbuild
+  build:
+    googleCloudBuild: {}
+- name: dockerfile
+  build:
+    artifacts:
+    - image: area51
