@@ -18,7 +18,7 @@ public class SecretsUtil {
     private static final Logger LOG = LoggerFactory.getLogger(SecretsUtil.class);
 
     public static String accessVersion() throws IOException {
-        String projectId = "tmaskibail-sandbox";
+        String projectId = "xxxx";
         String secretId = "db-secret";
         String versionId = "1";
         return accessSecretVersion(projectId, secretId, versionId);
